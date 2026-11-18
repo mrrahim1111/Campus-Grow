@@ -1,6 +1,6 @@
 "use client";
 // components/UpgradeButton.tsx
-// Navigates user to Razorpay pricing & subscription plans
+// Navigates user to pricing & subscription plans
 import Link from "next/link";
 
 interface UpgradeButtonProps {

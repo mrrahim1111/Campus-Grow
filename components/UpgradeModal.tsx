@@ -9,40 +9,6 @@ interface UpgradeModalProps {
   featureTitle?: string;
 }
 
-type RazorpaySubscriptionResponse = {
-  razorpay_payment_id: string;
-  razorpay_subscription_id: string;
-  razorpay_signature: string;
-};
-
-type RazorpayCheckoutOptions = {
-  key: string;
-  subscription_id: string;
-  name: string;
-  description: string;
-  image: string;
-  prefill: { name: string; email: string };
-  theme: { color: string };
-  handler: (response: RazorpaySubscriptionResponse) => void;
-  modal: { ondismiss: () => void };
-};
-
-type WindowWithRazorpay = Window & {
-  Razorpay?: new (options: RazorpayCheckoutOptions) => { open: () => void };
-};
-
-function loadRazorpayScript(): Promise<boolean> {
-  return new Promise((resolve) => {
-    if (typeof window === "undefined") return resolve(false);
-    if ((window as WindowWithRazorpay).Razorpay) return resolve(true);
-    const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
-    script.onload = () => resolve(true);
-    script.onerror = () => resolve(false);
-    document.body.appendChild(script);
-  });
-}
-
 export default function UpgradeModal({ isOpen, onClose, featureTitle }: UpgradeModalProps) {
   const router = useRouter();
   const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");

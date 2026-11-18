@@ -737,7 +737,7 @@ export default function CompanyLandingPage() {
                       <span className="text-3xl sm:text-4xl font-black text-[#102B24]">₹129</span>
                       <span className="text-xs text-[#557267]">/ month</span>
                     </div>
-                    <p className="text-xs text-[#557267] mt-1">Configured in Razorpay gateway (₹129 INR/mo).</p>
+                    <p className="text-xs text-[#557267] mt-1">Affordable student pricing (₹129 INR/mo).</p>
                   </div>
 
                   <ul className="space-y-2.5 pt-4 border-t border-slate-100 text-xs text-[#102B24]">
@@ -790,7 +790,7 @@ export default function CompanyLandingPage() {
                       <span className="text-3xl sm:text-4xl font-black text-[#102B24]">₹999</span>
                       <span className="text-xs text-[#557267]">/ year</span>
                     </div>
-                    <p className="text-xs text-[#557267] mt-1">Configured in Razorpay gateway (₹999 INR/yr). Save 35%.</p>
+                    <p className="text-xs text-[#557267] mt-1">Affordable annual access (₹999 INR/yr). Save 35%.</p>
                   </div>
 
                   <ul className="space-y-2.5 pt-4 border-t border-slate-100 text-xs text-[#102B24]">
