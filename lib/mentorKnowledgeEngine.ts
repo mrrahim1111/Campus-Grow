@@ -611,9 +611,9 @@ New range: [ 33, 42, 55, 68 ] (Half eliminated in 1 check!)`,
   }
 }
 
-class StripeProcessor extends PaymentProcessor {
+class CardPaymentProcessor extends PaymentProcessor {
   process(amount) {
-    return \`Charging $\${amount} via Stripe Card API.\`;
+    return \`Charging $\${amount} via Card Gateway API.\`;
   }
 }
 

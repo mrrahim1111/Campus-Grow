@@ -234,7 +234,7 @@ export const ROLE_MATRIX_CONFIG: Record<RoleId, RoleConfig> = {
     ],
     standoutProjects: [
       { title: "Collaborative Realtime Workspace", desc: "A Notion-like editor with live multiplayer cursor sync, WebSockets, and optimistic state updates.", tech: "Next.js 15, TypeScript, Socket.io, Redis" },
-      { title: "Microservices E-Commerce Platform", desc: "Full-stack checkout system with Stripe/Razorpay billing, inventory locks, and webhook reliability.", tech: "React, Node.js, PostgreSQL, Docker" },
+      { title: "Microservices E-Commerce Platform", desc: "Full-stack checkout system with Razorpay billing, inventory locks, and webhook reliability.", tech: "React, Node.js, PostgreSQL, Docker" },
       { title: "Developer Component Library", desc: "Accessible, keyboard-navigable UI component library published to NPM with automated CI tests.", tech: "TypeScript, React, Storybook, Tailwind" },
     ],
     certifications: [

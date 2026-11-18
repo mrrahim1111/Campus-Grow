@@ -497,7 +497,7 @@ export default function LiveCohortsPage() {
                     disabled={isProcessing}
                     className="btn-emerald-gradient px-6 py-2.5 rounded-xl text-xs font-bold shadow cursor-pointer disabled:opacity-50 flex items-center gap-2"
                   >
-                    {isProcessing ? "Processing Admission..." : "Confirm & Pay with Razorpay / Stripe →"}
+                    {isProcessing ? "Processing Admission..." : "Confirm & Pay with Razorpay →"}
                   </button>
                 </div>
               </div>

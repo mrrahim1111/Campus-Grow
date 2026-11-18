@@ -904,7 +904,7 @@ ENTRYPOINT ["nanoredis", "--port", "6379", "--max-memory", "128MB"]`,
   {
     id: "fullstack-ai-saas",
     title: "Fullstack AI SaaS: AI Resume & Career Intelligence Platform",
-    shortDescription: "Production Next.js 15, Gemini 1.5 Pro, Supabase Auth/DB, and Razorpay/Stripe billing with automated PDF generation.",
+    shortDescription: "Production Next.js 15, Gemini 1.5 Pro, Supabase Auth/DB, and Razorpay billing with automated PDF generation.",
     difficulty: "Advanced",
     category: "Fullstack AI SaaS",
     estimatedTime: "15-20 Hours",
