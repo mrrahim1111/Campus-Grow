@@ -36,9 +36,6 @@ export default function CompanyLandingPage() {
   // Video error fallback tracking
   const [heroVideoError, setHeroVideoError] = useState(false);
 
-  // Active track in What We Do section
-  const [activeDomainIndex, setActiveDomainIndex] = useState(0);
-
   // Core Duo Leadership State (2-member showcase inspired by Conicorn)
   const [activeTeamSlide, setActiveTeamSlide] = useState(0); // 0 = Member 1, 1 = Member 2
 
@@ -394,12 +391,6 @@ export default function CompanyLandingPage() {
               Why Us
             </a>
             <a
-              href="#what-we-do"
-              className="px-3.5 py-1.5 rounded-full text-xs font-bold text-[#557267] hover:text-[#102B24] hover:bg-[#E8F5E9] transition"
-            >
-              What We Do
-            </a>
-            <a
               href="#pricing"
               className="px-3.5 py-1.5 rounded-full text-xs font-bold text-[#557267] hover:text-[#102B24] hover:bg-[#E8F5E9] transition"
             >
@@ -420,18 +411,18 @@ export default function CompanyLandingPage() {
           </nav>
 
           {/* Desktop Right CTAs */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2.5">
             <Link
               href="/login"
-              className="text-xs font-bold text-[#557267] hover:text-[#102B24] px-3.5 py-2 rounded-xl transition"
+              className="text-xs font-bold text-[#102B24] hover:text-[#16865A] px-3.5 py-2 rounded-full border border-transparent hover:border-[#B9E4C9] hover:bg-[#E8F5E9] transition"
             >
-              Sign In
+              Log In
             </Link>
             <Link
-              href="/onboarding"
-              className="px-4 py-2 rounded-xl bg-[#16865A] hover:bg-[#0B7650] text-white text-xs font-bold shadow-xs hover:shadow-md transition active:scale-95 flex items-center gap-1.5"
+              href="/login?mode=signup"
+              className="px-4 py-2 rounded-full bg-[#16865A] hover:bg-[#0B7650] text-white text-xs font-extrabold shadow-xs hover:shadow-md transition active:scale-95 flex items-center gap-1.5"
             >
-              <span>Get Started</span>
+              <span>Sign Up</span>
               <span className="text-emerald-200">→</span>
             </Link>
           </div>
@@ -462,7 +453,6 @@ export default function CompanyLandingPage() {
                 { name: "Home", href: "#hero" },
                 { name: "Who We Are", href: "#who-we-are" },
                 { name: "Why We Exist", href: "#why-we-exist" },
-                { name: "What We Do", href: "#what-we-do" },
                 { name: "Subscriptions & Pricing", href: "#pricing" },
                 { name: "Our Team", href: "#team" },
                 { name: "Contact & Community", href: "#contact" },
@@ -481,16 +471,16 @@ export default function CompanyLandingPage() {
               <Link
                 href="/login"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex-1 py-2 rounded-xl text-center text-xs font-bold border border-[#B9E4C9] text-[#102B24]"
+                className="flex-1 py-2 rounded-xl text-center text-xs font-bold border border-[#B9E4C9] text-[#102B24] hover:bg-[#E8F5E9] transition"
               >
-                Sign In
+                Log In
               </Link>
               <Link
-                href="/onboarding"
+                href="/login?mode=signup"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="flex-1 py-2 rounded-xl text-center text-xs font-bold bg-[#16865A] text-white"
+                className="flex-1 py-2 rounded-xl text-center text-xs font-bold bg-[#16865A] text-white hover:bg-[#0B7650] transition"
               >
-                Get Started →
+                Sign Up →
               </Link>
             </div>
           </div>
@@ -562,28 +552,28 @@ export default function CompanyLandingPage() {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2">
               <Link
-                href="/onboarding"
+                href="/login?mode=signup"
                 className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-[#16865A] hover:bg-[#0B7650] text-white font-extrabold text-sm shadow-[0_12px_32px_rgba(22,134,90,0.25)] hover:shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2"
               >
-                <span>Get Started Free</span>
+                <span>Sign Up Free</span>
                 <span className="text-emerald-200">→</span>
               </Link>
 
-              <a
-                href="#what-we-do"
+              <Link
+                href="/login"
                 className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-white hover:bg-[#E8F5E9] text-[#102B24] font-bold text-sm border border-[#B9E4C9] shadow-2xs transition-all flex items-center justify-center gap-2"
+              >
+                <span>Log In</span>
+                <span>👤</span>
+              </Link>
+
+              <a
+                href="#who-we-are"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white/70 hover:bg-white text-[#557267] hover:text-[#102B24] font-bold text-sm border border-slate-200 hover:border-[#16865A] transition shadow-2xs flex items-center justify-center gap-1.5"
               >
                 <span>Explore CampusGrow</span>
                 <span>🧭</span>
               </a>
-
-              <Link
-                href="/project-hub"
-                className="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white/70 hover:bg-white text-[#16865A] font-bold text-sm border border-slate-200 hover:border-[#16865A] transition shadow-2xs flex items-center justify-center gap-1.5"
-              >
-                <span>Launch Cloud IDE</span>
-                <span>⚡</span>
-              </Link>
             </div>
 
             {/* Platform Metrics Strip */}
@@ -797,98 +787,14 @@ export default function CompanyLandingPage() {
         </section>
 
 
-        {/* ── 4. WHAT WE DO (9 Core Offerings) ────────────────────── */}
-        <section id="what-we-do" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-12">
-
-            {/* Section Header */}
-            <div className="text-center max-w-3xl mx-auto space-y-3">
-              <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-[#E8F5E9] text-[#16865A] border border-[#B9E4C9]">
-                03 • What We Do
-              </span>
-              <h2 className="text-3xl sm:text-5xl font-black text-[#102B24] tracking-tight">
-                Everything An Engineer Needs to Excel.
-              </h2>
-              <p className="text-sm sm:text-base text-[#557267] leading-relaxed">
-                Nine comprehensive pillars spanning low-level systems, modern artificial intelligence, cloud architectures, and placement preparation.
-              </p>
-            </div>
-
-            {/* 9 Offerings Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {offerings.map((offering, idx) => (
-                <div
-                  key={offering.id}
-                  onClick={() => setActiveDomainIndex(idx)}
-                  className={`rounded-3xl p-6 border transition-all duration-300 flex flex-col justify-between group cursor-pointer ${activeDomainIndex === idx
-                    ? "bg-white border-[#16865A] shadow-[0_16px_40px_rgba(22,134,90,0.08)] scale-[1.01]"
-                    : "bg-[#FAFCFA] border-[#B9E4C9]/70 hover:border-[#16865A] hover:bg-white"
-                    }`}
-                >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-3xl p-2 rounded-2xl bg-[#E8F5E9] border border-[#B9E4C9] shrink-0">
-                        {offering.icon}
-                      </span>
-                      <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-white border border-[#CBD5E1] text-[#557267]">
-                        {offering.badge}
-                      </span>
-                    </div>
-
-                    <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#16865A]">
-                        {offering.subtitle}
-                      </span>
-                      <h3 className="text-lg font-black text-[#102B24] group-hover:text-[#16865A] transition leading-snug mt-0.5">
-                        {offering.title}
-                      </h3>
-                    </div>
-
-                    <p className="text-xs text-[#557267] leading-relaxed">
-                      {offering.desc}
-                    </p>
-
-                    <div className="pt-2 flex flex-col gap-1.5">
-                      {offering.highlights.map((h, i) => (
-                        <div key={i} className="flex items-center gap-2 text-[11px] font-semibold text-[#102B24]">
-                          <span className="text-[#16865A] text-xs">●</span>
-                          <span>{h}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#16865A]">
-                    <span>Explore Track</span>
-                    <span className="group-hover:translate-x-1 transition-transform">→</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Quick Action Link */}
-            <div className="text-center pt-4">
-              <Link
-                href="/explore"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-[#B9E4C9] hover:border-[#16865A] text-xs font-extrabold text-[#16865A] shadow-2xs hover:bg-[#E8F5E9] transition"
-              >
-                <span>Browse All 15 Domains &amp; Course Tracks</span>
-                <span>→</span>
-              </Link>
-            </div>
-
-          </div>
-        </section>
-
-
-        {/* ── 4. SUBSCRIPTIONS AND PRICING ────────────────────────── */}
+        {/* ── 3. SUBSCRIPTIONS AND PRICING ────────────────────────── */}
         <section id="pricing" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-12">
 
             {/* Section Header */}
             <div className="text-center max-w-3xl mx-auto space-y-3">
               <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-[#E8F5E9] text-[#16865A] border border-[#B9E4C9]">
-                04 • Subscriptions &amp; Pricing
+                03 • Subscriptions &amp; Pricing
               </span>
               <h2 className="text-3xl sm:text-5xl font-black text-[#102B24] tracking-tight">
                 Transparent Pricing for Student Budgets.
@@ -971,7 +877,7 @@ export default function CompanyLandingPage() {
                 </div>
 
                 <Link
-                  href="/onboarding"
+                  href="/login?mode=signup"
                   className="w-full py-3 rounded-xl bg-white hover:bg-slate-50 border border-[#CBD5E1] text-[#102B24] text-center text-xs font-bold transition shadow-2xs block"
                 >
                   Start Free Account
@@ -1139,7 +1045,7 @@ export default function CompanyLandingPage() {
         </section>
 
 
-        {/* ── 6. LEADERSHIP & FOUNDING TEAM (Conicorn-Inspired 2-Member Showcase) ── */}
+        {/* ── 4. LEADERSHIP & FOUNDING TEAM (Conicorn-Inspired 2-Member Showcase) ── */}
         <section id="team" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="rounded-[40px] bg-white border border-[#B9E4C9] p-6 sm:p-12 shadow-[0_20px_60px_rgba(16,43,36,0.05)] space-y-10 relative overflow-hidden">
 
@@ -1150,7 +1056,7 @@ export default function CompanyLandingPage() {
             {/* Section Header */}
             <div className="text-center max-w-3xl mx-auto space-y-3 relative z-10">
               <span className="text-xs font-black uppercase tracking-wider px-3.5 py-1 rounded-full bg-[#E8F5E9] text-[#16865A] border border-[#B9E4C9]">
-                05 • Leadership & Core Team
+                04 • Leadership & Core Team
               </span>
               <h2 className="text-3xl sm:text-5xl font-black text-[#102B24] tracking-tight">
                 Meet the Minds Behind CampusGrow.
@@ -1616,14 +1522,14 @@ export default function CompanyLandingPage() {
         </section>
 
 
-        {/* ── 7. SOCIAL MEDIA AND CONTACT ─────────────────────────── */}
+        {/* ── 5. SOCIAL MEDIA AND CONTACT ─────────────────────────── */}
         <section id="contact" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-12">
 
             {/* Section Header */}
             <div className="text-center max-w-3xl mx-auto space-y-3">
               <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-[#E8F5E9] text-[#16865A] border border-[#B9E4C9]">
-                06 • Connect With Us
+                05 • Connect With Us
               </span>
               <h2 className="text-3xl sm:text-5xl font-black text-[#102B24] tracking-tight">
                 Let&apos;s Build Better Engineering Together.

@@ -432,9 +432,19 @@ export default function AppSidebar() {
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-xs font-bold text-slate-900 truncate">{studentName}</p>
-              <p className="text-[11px] text-slate-500 truncate">
-                {isPro ? "👑 Pro Member" : "Free Plan"}
-              </p>
+              {isPro ? (
+                <p className="text-[11px] text-amber-600 font-bold truncate">👑 Pro Member</p>
+              ) : (
+                <Link
+                  href="/#pricing"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-1 text-[10px] font-black text-amber-700 bg-amber-100 hover:bg-amber-200 px-1.5 py-0.5 rounded transition"
+                  title="Upgrade to CampusGrow Pro"
+                >
+                  <span>Free • Upgrade</span>
+                  <span>↗</span>
+                </Link>
+              )}
             </div>
           </Link>
         )}

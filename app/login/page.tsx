@@ -15,7 +15,20 @@ function LoginForm() {
 
   const supabase = createClient();
 
-  const [mode, setMode] = useState<"login" | "register">("login");
+  const initialMode =
+    searchParams.get("mode") === "signup" || searchParams.get("mode") === "register"
+      ? "register"
+      : "login";
+  const [mode, setMode] = useState<"login" | "register">(initialMode);
+
+  useEffect(() => {
+    const requestedMode = searchParams.get("mode");
+    if (requestedMode === "signup" || requestedMode === "register") {
+      setMode("register");
+    } else if (requestedMode === "login") {
+      setMode("login");
+    }
+  }, [searchParams]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

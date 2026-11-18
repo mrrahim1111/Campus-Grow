@@ -402,7 +402,19 @@ export default function DashboardPage() {
               </h1>
             </div>
 
-            <div className="flex items-center gap-2.5">
+            <div className="flex flex-wrap items-center gap-2.5">
+              {/* Upgrade to PRO Button */}
+              {!isPro && (
+                <Link
+                  href="/#pricing"
+                  className="px-4 py-2 rounded-full text-xs font-black bg-gradient-to-r from-amber-500 via-amber-600 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white shadow-xs hover:shadow-md transition active:scale-95 flex items-center gap-1.5 cursor-pointer ring-2 ring-amber-300/40"
+                  title="Upgrade to CampusGrow PRO for unlimited AI, compiler sandboxes and mock interviews"
+                >
+                  <span className="text-sm">💎</span>
+                  <span>Upgrade to PRO</span>
+                </Link>
+              )}
+
               {/* Daily Check-In */}
               <button
                 onClick={handleCheckInToday}
@@ -570,12 +582,24 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <Link
-                href="/profile"
-                className="mt-3 w-full py-1.5 rounded-xl bg-white hover:bg-emerald-50 border border-[#B9E4C9] text-xs font-bold text-[#16865A] text-center transition shadow-2xs block"
-              >
-                View Public Portfolio →
-              </Link>
+              <div className="mt-3 space-y-1.5">
+                {!isPro && (
+                  <Link
+                    href="/#pricing"
+                    className="w-full py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-extrabold text-xs shadow-2xs transition flex items-center justify-center gap-1.5 active:scale-95 text-center"
+                    title="Unlock unlimited AI mock interviews & cloud compiler environments"
+                  >
+                    <span>💎 Upgrade to PRO</span>
+                    <span>→</span>
+                  </Link>
+                )}
+                <Link
+                  href="/profile"
+                  className="w-full py-1.5 rounded-xl bg-white hover:bg-emerald-50 border border-[#B9E4C9] text-xs font-bold text-[#16865A] text-center transition shadow-2xs block"
+                >
+                  View Public Portfolio →
+                </Link>
+              </div>
             </div>
 
             {/* Card 2: Interactive Weekly Study Hours Bar Chart */}
