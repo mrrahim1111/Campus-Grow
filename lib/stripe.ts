@@ -2,20 +2,26 @@
 // Server-side Stripe client — never import in client components
 import Stripe from "stripe";
 
-// Validate at module load so missing keys surface early
-if (!process.env.STRIPE_SECRET_KEY) {
-  throw new Error("Missing STRIPE_SECRET_KEY environment variable.");
-}
+// Safe fallback for build-time evaluation when environment variables are not yet injected
+const stripeSecretKey =
+  process.env.STRIPE_SECRET_KEY || "sk_test_placeholder_for_build_time_evaluation";
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2026-08-26.dahlia",
+export const stripe = new Stripe(stripeSecretKey, {
+  apiVersion: "2026-08-26.dahlia" as any,
   typescript: true,
 });
 
+export function isStripeConfigured(): boolean {
+  return Boolean(
+    process.env.STRIPE_SECRET_KEY &&
+      process.env.STRIPE_SECRET_KEY !== "sk_test_placeholder_for_build_time_evaluation"
+  );
+}
+
 // ─── Price IDs ────────────────────────────────────────────────────────────────
 export const STRIPE_PRICES = {
-  monthly: process.env.STRIPE_PRICE_MONTHLY!,
-  annual: process.env.STRIPE_PRICE_ANNUAL!,
+  monthly: process.env.STRIPE_PRICE_MONTHLY || "",
+  annual: process.env.STRIPE_PRICE_ANNUAL || "",
 } as const;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -26,6 +32,10 @@ export async function getOrCreateStripeCustomer(
   email: string,
   name: string
 ): Promise<string> {
+  if (!isStripeConfigured()) {
+    throw new Error("Stripe secret key is not configured in environment variables.");
+  }
+
   // Check if customer already exists by searching metadata
   const existing = await stripe.customers.search({
     query: `metadata["supabase_user_id"]:"${userId}"`,
@@ -60,6 +70,10 @@ export async function createCheckoutSession({
   successUrl: string;
   cancelUrl: string;
 }): Promise<string> {
+  if (!isStripeConfigured()) {
+    throw new Error("Stripe secret key is not configured in environment variables.");
+  }
+
   const session = await stripe.checkout.sessions.create({
     customer: customerId,
     payment_method_types: ["card"],
@@ -82,6 +96,10 @@ export async function createPortalSession(
   customerId: string,
   returnUrl: string
 ): Promise<string> {
+  if (!isStripeConfigured()) {
+    throw new Error("Stripe secret key is not configured in environment variables.");
+  }
+
   const session = await stripe.billingPortal.sessions.create({
     customer: customerId,
     return_url: returnUrl,
