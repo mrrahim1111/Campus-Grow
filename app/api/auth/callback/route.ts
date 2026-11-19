@@ -21,26 +21,33 @@ export async function GET(request: NextRequest) {
   }
 
   if (code) {
-    const supabase = await createClient();
-    const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+    try {
+      const supabase = await createClient();
+      const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
 
-    if (exchangeError) {
-      console.error("[Auth Callback] Code exchange failed:", exchangeError.message);
+      if (exchangeError) {
+        console.error("[Auth Callback] Code exchange failed:", exchangeError.message);
+        const url = new URL("/", origin);
+        url.searchParams.set("error", exchangeError.message);
+        return NextResponse.redirect(url.toString());
+      }
+
+      // Successful — redirect to the intended destination
+      const forwardedHost = request.headers.get("x-forwarded-host");
+      const isLocalEnv = process.env.NODE_ENV === "development";
+
+      if (isLocalEnv) {
+        return NextResponse.redirect(`${origin}${next}`);
+      } else if (forwardedHost) {
+        return NextResponse.redirect(`https://${forwardedHost}${next}`);
+      } else {
+        return NextResponse.redirect(`${origin}${next}`);
+      }
+    } catch (err: any) {
+      console.error("[Auth Callback Crash Prevented]:", err);
       const url = new URL("/", origin);
-      url.searchParams.set("error", exchangeError.message);
+      url.searchParams.set("error", "auth_session_failed");
       return NextResponse.redirect(url.toString());
-    }
-
-    // Successful — redirect to the intended destination
-    const forwardedHost = request.headers.get("x-forwarded-host");
-    const isLocalEnv = process.env.NODE_ENV === "development";
-
-    if (isLocalEnv) {
-      return NextResponse.redirect(`${origin}${next}`);
-    } else if (forwardedHost) {
-      return NextResponse.redirect(`https://${forwardedHost}${next}`);
-    } else {
-      return NextResponse.redirect(`${origin}${next}`);
     }
   }
 

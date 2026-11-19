@@ -44,9 +44,14 @@ function LoginForm() {
 
   // Redirect if already logged in
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      if (user) router.replace(redirectTarget);
-    });
+    supabase.auth
+      .getUser()
+      .then(({ data: { user } }) => {
+        if (user) router.replace(redirectTarget);
+      })
+      .catch(() => {
+        // Safe fallback if offline / unconfigured
+      });
   }, []);
 
   // Social Sign-In

@@ -51,13 +51,16 @@ export default function SettingsPage() {
     // 2. Supabase User info
     try {
       const supabase = createClient();
-      supabase.auth.getUser().then(({ data: { user } }) => {
-        if (user) {
-          setEmail(user.email || null);
-          const metaName = user.user_metadata?.name;
-          if (metaName) setName(metaName);
-        }
-      });
+      supabase.auth
+        .getUser()
+        .then(({ data: { user } }) => {
+          if (user) {
+            setEmail(user.email || null);
+            const metaName = user.user_metadata?.name;
+            if (metaName) setName(metaName);
+          }
+        })
+        .catch(() => {});
     } catch {
       // ignore
     }

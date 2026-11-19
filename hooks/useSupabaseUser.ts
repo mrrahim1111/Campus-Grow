@@ -54,11 +54,17 @@ export function useSupabaseUser() {
     window.addEventListener("campusgrow_subscription_updated", checkLocalPro);
 
     // Get initial session
-    supabase.auth.getUser().then(async ({ data: { user } }) => {
-      setUser(user);
-      if (user) await fetchProfile(user.id);
-      setLoading(false);
-    });
+    supabase.auth
+      .getUser()
+      .then(async ({ data: { user } }) => {
+        setUser(user);
+        if (user) await fetchProfile(user.id);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.warn("[Auth] Could not fetch user session:", err);
+        setLoading(false);
+      });
 
     // Subscribe to auth changes
     const { data: { subscription: authSub } } = supabase.auth.onAuthStateChange(

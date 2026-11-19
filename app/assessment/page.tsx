@@ -63,31 +63,36 @@ function AssessmentContent() {
 
     // Also sync from Supabase if logged in
     const supabase = createClient();
-    supabase.auth.getUser().then(async ({ data: { user } }) => {
-      if (!user) return;
-      if (user.user_metadata?.name) setStudentName(user.user_metadata.name);
-      if (user.user_metadata?.branch) setStudentBranch(user.user_metadata.branch);
-      if (user.user_metadata?.year) setStudentYear(user.user_metadata.year);
+    supabase.auth
+      .getUser()
+      .then(async ({ data: { user } }) => {
+        if (!user) return;
+        if (user.user_metadata?.name) setStudentName(user.user_metadata.name);
+        if (user.user_metadata?.branch) setStudentBranch(user.user_metadata.branch);
+        if (user.user_metadata?.year) setStudentYear(user.user_metadata.year);
 
-      const { data: prof } = await supabase.from("profiles").select("*").eq("id", user.id).single();
-      if (prof) {
-        if (prof.name) setStudentName(prof.name);
-        if (prof.branch) setStudentBranch(prof.branch);
-        if (prof.year) setStudentYear(prof.year);
-      }
+        const { data: prof } = await supabase.from("profiles").select("*").eq("id", user.id).single();
+        if (prof) {
+          if (prof.name) setStudentName(prof.name);
+          if (prof.branch) setStudentBranch(prof.branch);
+          if (prof.year) setStudentYear(prof.year);
+        }
 
-      const { data: dbAssessment } = await supabase
-        .from("assessments")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .maybeSingle();
+        const { data: dbAssessment } = await supabase
+          .from("assessments")
+          .select("*")
+          .eq("user_id", user.id)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle();
 
-      if (dbAssessment?.path_data) {
-        setGeneratedPath(dbAssessment.path_data as PersonalizedPath);
-      }
-    });
+        if (dbAssessment?.path_data) {
+          setGeneratedPath(dbAssessment.path_data as PersonalizedPath);
+        }
+      })
+      .catch(() => {
+        // Safe fallback when auth service is not reachable
+      });
   }, [searchParams]);
 
   // Start assessment
