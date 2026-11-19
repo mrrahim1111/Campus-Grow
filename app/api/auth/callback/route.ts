@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
   // If Supabase/Google returned an error
   if (error) {
     console.error("[Auth Callback] OAuth error:", error, errorDescription);
-    const url = new URL("/", origin);
+    const url = new URL("/login", origin);
     url.searchParams.set("error", errorDescription ?? error);
     return NextResponse.redirect(url.toString());
   }
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
 
       if (exchangeError) {
         console.error("[Auth Callback] Code exchange failed:", exchangeError.message);
-        const url = new URL("/", origin);
+        const url = new URL("/login", origin);
         url.searchParams.set("error", exchangeError.message);
         return NextResponse.redirect(url.toString());
       }
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
       }
     } catch (err: any) {
       console.error("[Auth Callback Crash Prevented]:", err);
-      const url = new URL("/", origin);
+      const url = new URL("/login", origin);
       url.searchParams.set("error", "auth_session_failed");
       return NextResponse.redirect(url.toString());
     }
@@ -53,5 +53,5 @@ export async function GET(request: NextRequest) {
 
   // No code — something went wrong
   console.error("[Auth Callback] No code in callback URL");
-  return NextResponse.redirect(`${origin}/?error=missing_auth_code`);
+  return NextResponse.redirect(`${origin}/login?error=missing_auth_code`);
 }

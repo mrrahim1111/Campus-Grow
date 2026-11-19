@@ -36,7 +36,13 @@ function LoginForm() {
   const [year, setYear] = useState("1st Year");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState(
-    errorParam === "auth_callback_failed" ? "Authentication callback failed. Try again." : ""
+    errorParam
+      ? errorParam === "auth_callback_failed"
+        ? "Authentication callback failed. Try again."
+        : errorParam === "missing_auth_code"
+        ? "OAuth authentication code missing. Please try signing in again."
+        : decodeURIComponent(errorParam)
+      : ""
   );
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
