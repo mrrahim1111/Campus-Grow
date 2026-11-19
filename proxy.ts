@@ -19,8 +19,8 @@ const PROTECTED_ROUTES = [
 export async function proxy(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://whwtzpizozuuubliwwwi.supabase.co";
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "sb_publishable_Y32XDDkG2D5nYHsSkjocjQ_25RcfLSI";
 
   // If Supabase environment variables are not configured, allow requests through safely
   if (
