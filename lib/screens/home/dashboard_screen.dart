@@ -4,6 +4,10 @@ import '../../services/supabase_service.dart';
 import '../learn/lesson_detail_screen.dart';
 import '../mentor/ai_mentor_screen.dart';
 import '../practice/quiz_screen.dart';
+import '../compiler/code_runner_screen.dart';
+import '../interview/mock_interview_screen.dart';
+import '../resume/resume_builder_screen.dart';
+import '../cohorts/cohorts_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -241,14 +245,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 const SizedBox(width: 14),
                 Expanded(
                   child: _buildActionCard(
-                    icon: Icons.quiz_outlined,
-                    title: 'Skill Assessment',
-                    subtitle: 'Test your concepts',
+                    icon: Icons.terminal_rounded,
+                    title: 'Cloud IDE',
+                    subtitle: 'Run C, Python, JS',
+                    color: AppColors.accentPurple,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const CodeRunnerScreen()),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildActionCard(
+                    icon: Icons.psychology_rounded,
+                    title: 'FAANG Mocks',
+                    subtitle: 'Tech & System Design',
+                    color: AppColors.accentAmber,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const MockInterviewScreen()),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: _buildActionCard(
+                    icon: Icons.description_outlined,
+                    title: 'ATS Resume',
+                    subtitle: 'Score & PDF Builder',
                     color: AppColors.accentCyan,
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (_) => const QuizScreen()),
+                        MaterialPageRoute(builder: (_) => const ResumeBuilderScreen()),
                       );
                     },
                   ),

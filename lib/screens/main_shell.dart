@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
 import 'home/dashboard_screen.dart';
 import 'learn/learning_hub_screen.dart';
-import 'practice/quiz_screen.dart';
+import 'compiler/code_runner_screen.dart';
+import 'interview/mock_interview_screen.dart';
+import 'resume/resume_builder_screen.dart';
+import 'cohorts/cohorts_screen.dart';
 import 'mentor/ai_mentor_screen.dart';
 import 'profile/profile_screen.dart';
 
@@ -19,7 +22,8 @@ class _MainShellState extends State<MainShell> {
   final List<Widget> _screens = const [
     DashboardScreen(),
     LearningHubScreen(),
-    QuizScreen(),
+    CodeRunnerScreen(),
+    PlacementHubScreen(),
     AiMentorScreen(),
     ProfileScreen(),
   ];
@@ -50,14 +54,14 @@ class _MainShellState extends State<MainShell> {
           backgroundColor: Colors.white,
           selectedItemColor: AppColors.primary,
           unselectedItemColor: AppColors.textMuted,
-          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
-          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 11),
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 10),
+          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 10),
           elevation: 0,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.dashboard_outlined),
               activeIcon: Icon(Icons.dashboard_rounded),
-              label: 'Dashboard',
+              label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.menu_book_outlined),
@@ -65,9 +69,14 @@ class _MainShellState extends State<MainShell> {
               label: 'Learn',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.quiz_outlined),
-              activeIcon: Icon(Icons.quiz_rounded),
-              label: 'Practice',
+              icon: Icon(Icons.terminal_outlined),
+              activeIcon: Icon(Icons.terminal_rounded),
+              label: 'Cloud IDE',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.work_outline_rounded),
+              activeIcon: Icon(Icons.work_rounded),
+              label: 'Placement',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.psychology_outlined),
@@ -79,6 +88,47 @@ class _MainShellState extends State<MainShell> {
               activeIcon: Icon(Icons.person_rounded),
               label: 'Profile',
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PlacementHubScreen extends StatelessWidget {
+  const PlacementHubScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        backgroundColor: AppColors.background,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: const Text(
+            'Placement & Career Suite',
+            style: TextStyle(color: AppColors.textDark, fontWeight: FontWeight.w900, fontSize: 17),
+          ),
+          bottom: const TabBar(
+            labelColor: AppColors.primary,
+            unselectedLabelColor: AppColors.textSecondary,
+            indicatorColor: AppColors.primary,
+            indicatorWeight: 3,
+            labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+            tabs: [
+              Tab(icon: Icon(Icons.psychology, size: 18), text: 'FAANG Mocks'),
+              Tab(icon: Icon(Icons.description, size: 18), text: 'ATS Resume'),
+              Tab(icon: Icon(Icons.video_camera_front, size: 18), text: 'Live Cohorts'),
+            ],
+          ),
+        ),
+        body: const TabBarView(
+          children: [
+            MockInterviewScreen(),
+            ResumeBuilderScreen(),
+            CohortsScreen(),
           ],
         ),
       ),

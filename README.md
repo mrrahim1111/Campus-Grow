@@ -1,79 +1,79 @@
-# CampusGrow — Grow Beyond the Classroom
+# CampusGrow — Grow Beyond the Classroom (Flutter Mobile App)
 
-The personal learning companion and engineering mastery platform for college students.
+A complete, production-grade native cross-platform mobile application for **CampusGrow**, engineered with **Flutter** (iOS & Android) and backed by **Supabase** and Next.js cloud APIs.
 
-## 📱 Mobile Application (Flutter)
+---
 
-CampusGrow includes a native cross-platform mobile application in the [`mobile/`](./mobile) directory:
-- **Framework:** Flutter (Dart >= 3.0.0)
-- **Authentication & DB:** Supabase Flutter SDK
-- **Key Modules:** Dashboard, Interactive Curriculum Viewer, Practice Assessments & Quizzes, 24/7 AI Socratic Mentor, and Student Profile.
-- To run or build the mobile app:
-  ```bash
-  cd mobile
-  flutter pub get
-  flutter run
-  ```
-  See [`mobile/README.md`](./mobile/README.md) for full setup and release building instructions.
+## 📱 Mobile Architecture & Modules
 
-## 💻 Web Application (Next.js 16)
+The repository root is now the primary Flutter application:
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+.
+├── pubspec.yaml                       # Flutter dependencies & assets configuration
+├── android/                           # Native Android manifest & gradle configuration
+├── lib/                               # Primary Flutter Dart application
+│   ├── main.dart                      # App entry point, Material 3 Theme, AuthGate
+│   ├── constants/
+│   │   ├── app_colors.dart            # CampusGrow Emerald / Mint / Slate palette
+│   │   └── app_strings.dart           # App constants & live Supabase project endpoints
+│   ├── models/
+│   │   ├── chat_message.dart          # AI Socratic mentor chat models
+│   │   ├── lesson_model.dart          # Syllabi, modules, and code models
+│   │   ├── quiz_model.dart            # Diagnostic MCQ and question models
+│   │   └── user_model.dart            # Student profile & progress models
+│   ├── services/
+│   │   ├── supabase_service.dart      # Realtime Supabase authentication & progress sync
+│   │   └── ai_mentor_service.dart     # Socratic AI chat engine with local fallback
+│   └── screens/
+│       ├── auth/login_screen.dart             # Student sign-in, registration, and guest mode
+│       ├── home/dashboard_screen.dart         # Daily streaks, sprint recommendations, stats
+│       ├── learn/learning_hub_screen.dart     # Year 1 to 4 modular engineering curriculum
+│       ├── learn/lesson_detail_screen.dart    # Markdown reader with code blocks & completion
+│       ├── compiler/code_runner_screen.dart   # Cloud Code Runner for C, Python, JavaScript
+│       ├── interview/mock_interview_screen.dart# FAANG SDE & System Design interview simulator
+│       ├── resume/resume_builder_screen.dart  # ATS Resume score gauge & PDF builder
+│       ├── cohorts/cohorts_screen.dart        # Live weekend masterclasses & mentor admission
+│       ├── practice/quiz_screen.dart          # Timed assessments, feedback, and scoring
+│       ├── mentor/ai_mentor_screen.dart       # 24/7 AI mentor with ELI5, FAANG, Doctor personas
+│       ├── profile/profile_screen.dart        # Student badges, CGPA, branch, and settings
+│       └── main_shell.dart                    # Persistent bottom navigation controller
+└── backend/                           # Next.js 16 Web APIs & Cloud Services
+    ├── app/api/terminal/execute/      # Cloud sandbox compiler API (C, Python, JS)
+    ├── app/api/mentor/chat/           # Gemini AI model endpoint
+    ├── app/api/auth/callback/         # Supabase OAuth handlers
+    └── supabase/                      # Database migrations & schemas
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 How to Run the Flutter Mobile App
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Prerequisites
+- [Flutter SDK](https://docs.flutter.dev/get-started/install) (`>= 3.0.0`)
+- Android Studio / Xcode for device simulation.
 
-## Razorpay subscriptions
+### 2. Install Packages
+```bash
+flutter pub get
+```
 
-The Pro checkout uses automatically renewing Razorpay subscriptions. To configure it:
+### 3. Run Locally
+```bash
+flutter run
+```
 
-1. In Razorpay, create a monthly plan for **₹129 INR** and a yearly plan for **₹999 INR**.
-2. Add the matching Razorpay API key ID and secret, both plan IDs, and a webhook secret to `.env.local` using [.env.example](./.env.example). Keep test credentials and test plans together; do not mix them with live credentials or plans.
-3. In Razorpay, configure a webhook for `https://<your-app-domain>/api/webhooks/razorpay` with the same webhook secret. Subscribe to `subscription.authenticated`, `subscription.activated`, `subscription.charged`, `subscription.completed`, `subscription.halted`, `subscription.cancelled`, `subscription.pending`, `subscription.updated`, `subscription.paused`, and `subscription.resumed`.
-4. Apply [the subscription migration](./supabase/migrations/20261003_razorpay_subscriptions.sql) in the Supabase SQL Editor.
-5. Restart the app after changing environment variables. Test the complete subscribe, renewal, and end-of-cycle cancellation flow with Razorpay test credentials before using live credentials.
+### 4. Build Release Packages
+- **Android APK**: `flutter build apk --release`
+- **Android App Bundle**: `flutter build appbundle --release`
+- **iOS App**: `flutter build ios --release`
 
-Razorpay requires a finite `total_count`: the monthly plan is set to 120 charges and the yearly plan to 10 charges. Users can schedule cancellation from the dashboard; Pro access remains active through the current billing period.
+---
 
-## Cloudflare Workers deployment
-
-This project uses [vinext](https://developers.cloudflare.com/workers/framework-guides/web-apps/nextjs/) to deploy its Next.js App Router on Cloudflare Workers. The Cloudflare build has been compatibility-checked; vinext is still in beta, so validate the deployed preview before using it for customers.
-
-1. Copy [.env.example](./.env.example) to `.env.local` and fill in the public Supabase settings. The built-in study mentor runs in the browser and does not need a separate AI provider key.
-2. For local Worker development, copy [.dev.vars.example](./.dev.vars.example) to `.dev.vars` and add the server-only Supabase and Razorpay values. Never commit `.env.local` or `.dev.vars`.
-3. Add a Cloudflare API token with Workers deployment permission as `CLOUDFLARE_API_TOKEN` in `.env.local`. Keep it private. Deploy with `npm run deploy:vinext`; the generated HTTPS `workers.dev` URL does not require a custom domain.
-4. Add the rotated Supabase service key and Razorpay server-only values as Worker secrets in Cloudflare's dashboard. Set the webhook endpoint to `https://<your-worker>.workers.dev/api/webhooks/razorpay`.
-5. Add the deployed origin and `/api/auth/callback` to Supabase Auth's allowed redirect URLs, and add the deployed origin to Google OAuth's authorized JavaScript origins. The Google OAuth redirect URI should remain Supabase's `/auth/v1/callback` URL.
-6. Exercise login, account creation, subscription checkout, webhooks, and scheduled cancellation on the preview before enabling live Razorpay credentials or promoting it for customers.
-
-The built-in study mentor has no third-party model quota, but it only responds to the topics implemented in the app; it is not a general-purpose conversational AI. Cloudflare and Supabase free tiers have usage and availability limits; check their terms and usage dashboards before accepting commercial traffic.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# CampusGrow
-# Campus-Grow
+## ☁️ Backend & Web Services (`backend/`)
+The Next.js backend services located in `backend/` provide the optional cloud compiler sandbox and web hooks:
+```bash
+cd backend
+npm install
+npm run dev
+```
