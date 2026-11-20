@@ -1,6 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CampusGrow — Grow Beyond the Classroom
 
-## Getting Started
+The personal learning companion and engineering mastery platform for college students.
+
+## 📱 Mobile Application (Flutter)
+
+CampusGrow includes a native cross-platform mobile application in the [`mobile/`](./mobile) directory:
+- **Framework:** Flutter (Dart >= 3.0.0)
+- **Authentication & DB:** Supabase Flutter SDK
+- **Key Modules:** Dashboard, Interactive Curriculum Viewer, Practice Assessments & Quizzes, 24/7 AI Socratic Mentor, and Student Profile.
+- To run or build the mobile app:
+  ```bash
+  cd mobile
+  flutter pub get
+  flutter run
+  ```
+  See [`mobile/README.md`](./mobile/README.md) for full setup and release building instructions.
+
+## 💻 Web Application (Next.js 16)
 
 First, run the development server:
 

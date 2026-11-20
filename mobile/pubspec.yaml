@@ -1,0 +1,29 @@
+name: campus_grow_mobile
+description: "CampusGrow — Grow Beyond the Classroom. Mobile companion for engineering students."
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  supabase_flutter: ^2.8.0
+  google_fonts: ^6.2.1
+  flutter_markdown: ^0.7.3
+  shared_preferences: ^2.3.2
+  url_launcher: ^6.3.0
+  intl: ^0.19.0
+  http: ^1.2.2
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
